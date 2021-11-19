@@ -1,13 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url(https://fonts.googleapis.com/css2?family=Architects+Daughter&amp;family=Inter:wght@400;500;600;700;800;900&amp;display=fallback);
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: Inter, sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.fp {
+  font-family: Inter, sans-serif;
+}
+
+.fs {
+  font-family: Architects Daughter, sans-serif;
+}
+
+.bg-dark{
+  background-color: rgb(21, 23, 25);
+}
+
+.text-dark{
+  color: rgb(21, 23, 25);
+}
+
+.circle-animation-1 {
+  animation-duration: 4s;
+  animation: circle-animation-1 1s infinite;
+}
+
+.circle-animation-2 {
+  animation-duration: 3s;
+  animation: circle-animation-2 2s infinite;
+}
+
+.circle-animation-3 {
+  animation-duration: 2s;
+  animation: circle-animation-3 3s infinite;
+}
+.circle-animation-4 {
+  animation-duration: 1s;
+  animation: circle-animation-4 4s infinite;
+}
+
+@keyframes circle-animation-1 {
+  0% {
+    width: 0px;
+    height: 0px;
+  }
+
+  100% {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@keyframes circle-animation-2 {
+  0% {
+    width: 80px;
+    height: 80px;
+  }
+
+  100% {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+@keyframes circle-animation-3 {
+  0% {
+    width: 160px;
+    height: 160px;
+  }
+
+  100% {
+    width: 240px;
+    height: 240px;
+  }
+}
+
+@keyframes circle-animation-4 {
+  0% {
+    width: 240px;
+    height: 240px;
+  }
+
+  100% {
+    width: 320px;
+    height: 320px;
+  }
 }

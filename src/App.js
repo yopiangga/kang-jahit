@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from "react";
 
-function App() {
+import MainKonveksi from "./dashboard-konveksi/MainKonveksi.js";
+import MainPenjahit from "./dashboard-penjahit/MainPenjahit.js";
+import MainGuest from "./guest/MainGuest.js";
+
+import { UserContext, UserProvider } from "./context/UserContext.js";
+import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+
+const queryClient = new QueryClient();
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <UserProvider>
+        <UserManager />
+      </UserProvider>
+    </QueryClientProvider>
   );
 }
 
-export default App;
+function UserManager() {
+  const { user, setUser } = useContext(UserContext);
+  const isLogin = 0;
+
+  // if (isLoading) return 'Loading...'
+
+  // if (error) return 'An error has occurred: ' + error.message
+
+  if (isLogin == 1) {
+    return <MainKonveksi />;
+  } else if (isLogin == 2) {
+    return <MainPenjahit />;
+  } else {
+    return <MainGuest />;
+  }
+}
