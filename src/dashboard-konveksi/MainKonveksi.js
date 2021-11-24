@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import {
     Router,
@@ -7,6 +7,7 @@ import {
     Route,
     Routes
 } from "react-router-dom";
+import { UserContext } from '../context/UserContext';
 import { Akun } from './components/akun/Akun';
 
 import { Beranda } from './components/beranda/Beranda';
@@ -20,6 +21,11 @@ import { Sidebar } from './components/shareable/Sidebar';
 import { TambahOrder } from './components/tambah-order/TambahOrder';
 
 export default function MainKonveksi() {
+
+    const {user, setUser, menuActive, setMenuActive} = useContext(UserContext)
+
+    console.log(user)
+
     return (
         <BrowserRouter>
             <div className="bg-gray-100">

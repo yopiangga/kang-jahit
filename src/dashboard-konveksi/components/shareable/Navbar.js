@@ -2,6 +2,7 @@ import React from "react"
 import { FiBell } from "react-icons/fi"
 
 export function Navbar() {
+
     return (
         <div className="fixed md:w-full md:top-0 md:z-20 flex flex-row flex-wrap items-center bg-white h-20 w-full px-6 shadow-sm">
 
@@ -19,7 +20,7 @@ export function Navbar() {
                 <i className="fad fa-chevron-double-down"></i>
             </button>
 
-            <div className="hidden xl:flex items-center space-x-5 items-center ml-auto text-dark">
+            <div className="hidden xl:flex space-x-5 items-center ml-auto text-dark">
                 <a className="flex items-center hover:text-gray-200" href="#">
                     <FiBell className="text-xl" />
                     <span className="flex absolute -mt-5 ml-4">

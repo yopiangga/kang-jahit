@@ -1,10 +1,18 @@
 
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { UserContext } from '../../../context/UserContext';
 
 export function TambahOrder() {
+
+    const {url, setUrl, user, setUser, menuActive, setMenuActive} = useContext(UserContext)
+
+    useEffect(() => {
+        setMenuActive("tambah-order");
+    }, [])
+    
     return (
         <div>
-            <div className="w-11/12 p-12 bg-white w-full mt-5 rounded-lg shadow-lg">
+            <div className="w-11/12 p-12 bg-white mt-5 rounded-lg shadow-lg">
                 <h1 className="text-xl font-semibold">Hallo Alfian 👋, <span className="font-normal">isi informasi orderan sebelum di posting ke halaman penjahit</span></h1>
                 <form className="mt-6">
                     <div className="form grid grid-cols-2">

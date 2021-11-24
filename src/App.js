@@ -20,16 +20,15 @@ export default function App() {
 }
 
 function UserManager() {
-  const { user, setUser } = useContext(UserContext);
-  const isLogin = 0;
+  const {user, setUser, menuActive, setMenuActive, isLogin, setIsLogin} = useContext(UserContext)
 
-  // if (isLoading) return 'Loading...'
+  if (!!!user) return 'Loading...'
 
   // if (error) return 'An error has occurred: ' + error.message
 
-  if (isLogin == 1) {
+  if (isLogin == 1 && user?.role == 1) {
     return <MainKonveksi />;
-  } else if (isLogin == 2) {
+  } else if (isLogin == 2 && user?.role == 2) {
     return <MainPenjahit />;
   } else {
     return <MainGuest />;

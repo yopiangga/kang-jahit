@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { UserContext } from "../../../context/UserContext";
 
 export function Akun() {
+
+    const {url, setUrl, user, setUser, menuActive, setMenuActive} = useContext(UserContext)
+
+    useEffect(() => {
+        setMenuActive("akun-saya");
+    }, [])
+    
     return (
         <div>
             <section className="relative mt-5 bg-blueGray-200">

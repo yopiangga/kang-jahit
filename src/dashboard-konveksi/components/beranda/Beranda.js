@@ -1,10 +1,15 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import { FiAward, FiBox, FiCheckSquare, FiChevronsUp, FiGift, FiShoppingBag } from "react-icons/fi"
 import { UserContext } from "../../../context/UserContext"
+import halloImage from '../../../assets/images/ilustration-hello.png'
 
 export function Beranda() {
 
-    const {user, setUser} = useContext(UserContext)
+    const {url, setUrl, user, setUser, menuActive, setMenuActive} = useContext(UserContext)
+
+    useEffect(() => {
+        setMenuActive("beranda");
+    }, [])
 
     return (
         <div className="flex-1">
@@ -76,7 +81,7 @@ export function Beranda() {
                 <div className="card-body flex flex-row">
 
                     <div className="img-wrapper w-48 h-56 flex justify-center items-center">
-                        <img src="/images/ilustration-hello.png" className="w-full" alt="img title" />
+                        <img src={halloImage} className="w-full" alt="img title" />
                     </div>
 
                     <div className="py-5 ml-10">

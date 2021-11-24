@@ -1,11 +1,23 @@
-import React from "react"
+import React, { useContext, useEffect } from "react"
 import { FiAward, FiBox, FiCheckSquare, FiGift, FiHome, FiPlusSquare, FiUser } from "react-icons/fi";
 import {
 
   Link
 } from "react-router-dom";
+import { UserContext } from "../../../context/UserContext";
 
 export function Sidebar(){
+
+  const {user, setUser, menuActive, setMenuActive} = useContext(UserContext)
+
+    function menu(id){
+      console.log(id)
+        if(id == menuActive){
+          return "mb-3 flex items-center capitalize font-medium text-sm text-indigo-600 transition ease-in-out duration-500";
+        } else {
+          return "mb-3 flex items-center capitalize font-medium text-sm hover:text-indigo-600 transition ease-in-out duration-500";
+        }
+    }
 
     return(
         // <div id="sideBar" className="flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 flex-none w-64 md:-ml-64 md:fixed md:top-0 md:z-30 md:h-screen md:shadow-xl animated faster">
@@ -20,42 +32,42 @@ export function Sidebar(){
             </div>
       
             <p className="uppercase text-xs text-gray-600 mb-4 tracking-wider">Utama</p>
-      
-            <Link to="/" className="mb-3 flex items-center capitalize font-medium text-sm hover:text-indigo-600 transition ease-in-out duration-500">
+
+            <Link to="/" className={menu("beranda")}>
               <FiHome className="mr-3" />               
               Beranda
             </Link>
       
             <p className="uppercase text-xs text-gray-600 mb-4 mt-4 tracking-wider">Aplikasi</p>
 
-            <Link to="/tambah-order" className="mb-3 flex items-center capitalize font-medium text-sm hover:text-indigo-600 transition ease-in-out duration-500">
+            <Link to="/tambah-order" className={menu("tambah-order")}>
               <FiPlusSquare className="mr-3" />
               Tambah Order
             </Link>
 
-            <Link to="/konfirmasi-order" className="mb-3 flex items-center capitalize font-medium text-sm hover:text-indigo-600 transition ease-in-out duration-500">
+            <Link to="/konfirmasi-order" className={menu("konfirmasi-order")}>
               <FiCheckSquare className="mr-3" />
               Konfirmasi Order
             </Link>
       
-            <Link to="/konfirmasi-diambil" className="mb-3 flex items-center capitalize font-medium text-sm hover:text-indigo-600 transition ease-in-out duration-500">
+            <Link to="/konfirmasi-diambil" className={menu("konfirmasi-diambil")}>
               <FiBox className="mr-3" />
               Konfirmasi Diambil
             </Link>
       
-            <Link to="konfirmasi-selesai" className="mb-3 flex items-center capitalize font-medium text-sm hover:text-indigo-600 transition ease-in-out duration-500">
+            <Link to="konfirmasi-selesai" className={menu("konfirmasi-selesai")}>
               <FiAward className="mr-3" />
               Konfirmasi Selesai
             </Link>
       
-            <Link to="riwayat-transaksi" className="mb-3 flex items-center capitalize font-medium text-sm hover:text-indigo-600 transition ease-in-out duration-500">
+            <Link to="riwayat-transaksi" className={menu("riwayat-transaksi")}>
               <FiGift className="mr-3" />
               Riwayat Transaksi
             </Link>
             
             <p className="uppercase text-xs text-gray-600 mb-4 mt-4 tracking-wider">Akun</p>
       
-            <Link to="/akun" className="mb-3 flex items-center capitalize font-medium text-sm hover:text-indigo-600 transition ease-in-out duration-500">
+            <Link to="/akun" className={menu("akun-saya")}>
               <FiUser className="mr-3" />
               Akun Saya
             </Link>

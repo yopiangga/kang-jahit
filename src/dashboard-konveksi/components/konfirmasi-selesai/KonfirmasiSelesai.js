@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import StarRatings from 'react-star-ratings';
+import { UserContext } from '../../../context/UserContext';
 
 export function KonfirmasiSelesai(){
+
+    const {url, setUrl, user, setUser, menuActive, setMenuActive} = useContext(UserContext)
+
+    useEffect(() => {
+        setMenuActive("konfirmasi-selesai");
+    }, [])
+
     return(
         <div>
             <div className="grid grid-cols-2 mt-5">
