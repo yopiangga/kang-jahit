@@ -2,12 +2,13 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { ModalInformationLittle } from "../../../component/ModalInformationLittle";
 import { UserContext } from "../../../context/UserContext";
+import GoogleMaps from '../../../component/GoogleMaps'
 
 export function TambahOrder() {
   const { url, setUrl, user, setUser, menuActive, setMenuActive } =
     useContext(UserContext);
   const [order, setOrder] = useState();
-  const [modalInformationLittle, setModalInformationLittle] = useState({status: false, description: ""});
+  const [modalInformationLittle, setModalInformationLittle] = useState({ status: false, description: "" });
 
   useEffect(() => {
     setMenuActive("tambah-order");
@@ -39,8 +40,8 @@ export function TambahOrder() {
         .then(function (response) {
           console.log(response);
           setModalInformationLittle({
-              status: true,
-              description: `Orderan "${order.judul}" berhasil di tambahkan`
+            status: true,
+            description: `Orderan "${order.judul}" berhasil di tambahkan`
           })
         })
         .catch(function (error) {
@@ -57,14 +58,30 @@ export function TambahOrder() {
     });
   }
 
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    }
+  }
+
+  const showPosition = (position) => {
+    setOrder({
+      ...complaint,
+      gps: {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      }
+    })
+  }
+
   return (
     <div>
-        <ModalInformationLittle
-            status={modalInformationLittle.status}
-            title={modalInformationLittle.title}
-            description={modalInformationLittle.description}
-            handleClose={handleCloseModal}
-        />
+      <ModalInformationLittle
+        status={modalInformationLittle.status}
+        title={modalInformationLittle.title}
+        description={modalInformationLittle.description}
+        handleClose={handleCloseModal}
+      />
       <div className="w-11/12 p-12 bg-white mt-5 rounded-lg shadow-lg">
         <h1 className="text-xl font-semibold">
           Hallo Alfian 👋,{" "}
@@ -123,6 +140,19 @@ export function TambahOrder() {
                 className="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
                 required
               />
+
+              {
+                !!!order?.gps ?
+                  ""
+                  :
+                  <div className="row flex laptop:w-11/12 mobile:w-full mb-5">
+                    <div className="col w-full">
+                      <div className="form-group flex h-96 w-full relative">
+                        <GoogleMaps latitude={order.gps.latitude} longitude={order.gps.longitude} />
+                      </div>
+                    </div>
+                  </div>
+              }
             </div>
           </div>
           <button type="submit" className="py-3 pl-5 pr-5 mr-2 mt-5 transition-colors duration-700 transform bg-indigo-500 hover:bg-blue-400 text-gray-100 text-md focus:border-4 border-indigo-300">

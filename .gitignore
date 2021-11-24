@@ -18,6 +18,9 @@
 .env.test.local
 .env.production.local
 
+/src/component/GoogleMaps.js
+/src/helper/Firebase.js
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
