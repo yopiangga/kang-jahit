@@ -11,7 +11,6 @@ export function Sidebar(){
   const {user, setUser, menuActive, setMenuActive} = useContext(UserContext)
 
     function menu(id){
-      console.log(id)
         if(id == menuActive){
           return "mb-3 flex items-center capitalize font-medium text-sm text-indigo-600 transition ease-in-out duration-500";
         } else {

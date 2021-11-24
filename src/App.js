@@ -6,6 +6,7 @@ import MainGuest from "./guest/MainGuest.js";
 
 import { UserContext, UserProvider } from "./context/UserContext.js";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { Loader } from "./component/Loader.js";
 
 const queryClient = new QueryClient();
 
@@ -22,7 +23,7 @@ export default function App() {
 function UserManager() {
   const {user, setUser, menuActive, setMenuActive, isLogin, setIsLogin} = useContext(UserContext)
 
-  if (!!!user) return 'Loading...'
+  if (!!!user) return <Loader />
 
   // if (error) return 'An error has occurred: ' + error.message
 

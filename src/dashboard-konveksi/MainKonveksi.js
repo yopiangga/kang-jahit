@@ -24,8 +24,6 @@ export default function MainKonveksi() {
 
     const {user, setUser, menuActive, setMenuActive} = useContext(UserContext)
 
-    console.log(user)
-
     return (
         <BrowserRouter>
             <div className="bg-gray-100">
