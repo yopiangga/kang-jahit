@@ -7,9 +7,9 @@ export const UserContext = createContext();
 
 export const UserProvider = props => {
   const [url, setUrl] = useState({api: "http://localhost:3000/"});
-  const [user, setUser] = useState();
+  const [user, setUser] = useState("");
   const [menuActive, setMenuActive] = useState();
-  const [isLogin, setIsLogin] = useState();
+  const [isLogin, setIsLogin] = useState("");
 
   useState(() => {
     const auth = getAuth();

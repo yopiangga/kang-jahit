@@ -23,13 +23,13 @@ export default function App() {
 function UserManager() {
   const {user, setUser, menuActive, setMenuActive, isLogin, setIsLogin} = useContext(UserContext)
 
-  if (!!!user) return <Loader />
+  if (isLogin == "") return <Loader />
 
   // if (error) return 'An error has occurred: ' + error.message
 
   if (isLogin == 1 && user?.role == 1) {
     return <MainKonveksi />;
-  } else if (isLogin == 2 && user?.role == 2) {
+  } else if (isLogin == 1 && user?.role == 2) {
     return <MainPenjahit />;
   } else {
     return <MainGuest />;

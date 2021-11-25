@@ -72,10 +72,11 @@ export function Navigation() {
 
   
   const handleSignin = (data) => {
+
     axios
-    .get(`${url.api}user/${data}`)
+    .get(`${url.api}user/${data.uid}`)
     .then(function (response) {
-        // console.log(response);
+        console.log(response);
 
         setUser({
             uid: response.data[0].uid,
