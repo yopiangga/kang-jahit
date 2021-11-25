@@ -2,17 +2,100 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { ModalInformationLittle } from "../../../component/ModalInformationLittle";
 import { UserContext } from "../../../context/UserContext";
-import GoogleMaps from '../../../component/GoogleMaps'
+import GoogleMaps from "../../../component/GoogleMaps";
+import { FaUpload } from "react-icons/fa";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export function TambahOrder() {
   const { url, setUrl, user, setUser, menuActive, setMenuActive } =
     useContext(UserContext);
   const [order, setOrder] = useState();
-  const [modalInformationLittle, setModalInformationLittle] = useState({ status: false, description: "" });
+  const [modalInformationLittle, setModalInformationLittle] = useState({
+    status: false,
+    description: "",
+  });
+  const [file, setFile] = useState();
+  const [imagePreview, setImagePreview] = useState(false);
 
   useEffect(() => {
     setMenuActive("tambah-order");
   }, []);
+
+  const handleImageAsFile = (e) => {
+    const file = e.target.files[0];
+    var pattern = /image-*/;
+
+    if (file.type.match(pattern)) {
+      setFile(e.target.files[0]);
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(e.target.files[0]);
+
+      return;
+    }
+  };
+
+  const Push = () => {
+    if (file != null) {
+      const date = new Date();
+      const time = date.getTime();
+
+      const storage = getStorage();
+      const storageRef = ref(
+        storage,
+        `/order/${time}_${user.email}_${file.name}`
+      );
+
+      const uploadTask = uploadBytes(storageRef, file).then((snapshot) => {
+        getDownloadURL(storageRef)
+        .then((url) => {
+          // console.log(url)
+          PushData(url);
+        })
+        .catch((error) => {
+          // A full list of error codes is available at
+        });
+      });
+
+    } else {
+      const date = new Date();
+      const time = date.getTime();
+      PushData("");
+    }
+  };
+
+  const PushData = (urlImage) => {
+    axios
+      .post(`${url.api}order`, {
+        id_konveksi: user.uid,
+        id_penjahit: "",
+        status: 1,
+        biaya: order.biaya,
+        nama_order: order.judul,
+        deskripsi: order.deskripsi,
+        gambar: urlImage,
+        batas_selesai: order.batas_selesai,
+        gps: {
+          latitude: order.gps.latitude,
+          longitude: order.gps.longitude,
+        },
+        apply_order: [],
+        rating: "-",
+      })
+      .then(function (response) {
+        // console.log(response);
+        setModalInformationLittle({
+          status: true,
+          description: `Orderan "${order.judul}" berhasil di tambahkan`,
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   const handleChange = (event) => {
     setOrder({
@@ -24,29 +107,14 @@ export function TambahOrder() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (order?.nama_order == "" || order?.deskripsi == "" || order.biaya == "") {
+    if (
+      order?.nama_order == "" ||
+      order?.deskripsi == "" ||
+      order?.biaya == "" ||
+      !!!order?.gps
+    ) {
     } else {
-      axios
-        .post(`${url.api}order`, {
-          id_konveksi: user.uid,
-          id_penjahit: "",
-          status: 1,
-          biaya: order.biaya,
-          nama_order: order.judul,
-          deskripsi: order.deskripsi,
-          apply_order: [],
-          rating: "-",
-        })
-        .then(function (response) {
-          console.log(response);
-          setModalInformationLittle({
-            status: true,
-            description: `Orderan "${order.judul}" berhasil di tambahkan`
-          })
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      Push();
     }
   };
 
@@ -54,25 +122,25 @@ export function TambahOrder() {
     setModalInformationLittle({
       status: false,
       title: "",
-      description: ""
+      description: "",
     });
-  }
+  };
 
   const getLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition);
     }
-  }
+  };
 
   const showPosition = (position) => {
     setOrder({
-      ...complaint,
+      ...order,
       gps: {
         latitude: position.coords.latitude,
-        longitude: position.coords.longitude
-      }
-    })
-  }
+        longitude: position.coords.longitude,
+      },
+    });
+  };
 
   return (
     <div>
@@ -93,7 +161,7 @@ export function TambahOrder() {
           <div className="form grid grid-cols-1">
             <div className="left mr-5">
               <label
-                for="judul"
+                htmlFor="judul"
                 className="block mt-2 text-xs font-semibold text-gray-600 uppercase"
               >
                 Judul Orderan
@@ -109,7 +177,22 @@ export function TambahOrder() {
               />
 
               <label
-                for="deskripsi"
+                htmlFor="batas_selesai"
+                className="block mt-2 text-xs font-semibold text-gray-600 uppercase"
+              >
+                Batas Selesai
+              </label>
+              <input
+                id="batas_selesai"
+                type="date"
+                name="batas_selesai"
+                onChange={handleChange}
+                className="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
+                required
+              />
+
+              <label
+                htmlFor="deskripsi"
                 className="block mt-2 text-xs font-semibold text-gray-600 uppercase"
               >
                 Deskripsi
@@ -126,7 +209,7 @@ export function TambahOrder() {
               ></textarea>
 
               <label
-                for="biaya"
+                htmlFor="biaya"
                 className="block mt-2 text-xs font-semibold text-gray-600 uppercase"
               >
                 Biaya
@@ -141,21 +224,77 @@ export function TambahOrder() {
                 required
               />
 
-              {
-                !!!order?.gps ?
-                  ""
-                  :
-                  <div className="row flex laptop:w-11/12 mobile:w-full mb-5">
-                    <div className="col w-full">
-                      <div className="form-group flex h-96 w-full relative">
-                        <GoogleMaps latitude={order.gps.latitude} longitude={order.gps.longitude} />
-                      </div>
+              <label
+                htmlFor="image"
+                className="block mt-2 text-xs font-semibold text-gray-600 uppercase"
+              >
+                Gambar
+              </label>
+
+              <div className="relative h-32">
+                <div className="border-2 border-dashed border-dark border-opacity-90 text-dark font-bold w-full h-32 rounded-xl flex flex-col justify-center items-center absolute z-0">
+                  <FaUpload />
+                  <span className="ml-2 mt-2 w-96 text-center">
+                    {file == null || file == undefined || file == ""
+                      ? "Upload Image"
+                      : file.name}
+                  </span>
+                </div>
+                <input
+                  className="cursor-pointer w-full h-40 opacity-0 pin-r pin-t absolute z-10"
+                  type="file"
+                  id="avatar"
+                  name="avatar"
+                  onChange={handleImageAsFile}
+                  accept="image/png, image/jpeg"
+                />
+              </div>
+              {imagePreview ? (
+                <div className="w-full h-96 relative overflow-hidden mt-5">
+                  <img
+                    src={imagePreview}
+                    layout="fill"
+                    alt="image-preview"
+                  />
+                </div>
+              ) : (
+                ""
+              )}
+
+              <label
+                htmlFor="lokasi"
+                className="block mt-2 text-xs font-semibold text-gray-600 uppercase"
+              >
+                Dapatkan lokasi terkini
+                <button
+                  onClick={getLocation}
+                  type="button"
+                  className="ml-2 bg-indigo-600 rounded-md py-1 px-2 text-sm text-white"
+                >
+                  Lokasi anda
+                </button>
+              </label>
+
+              {!!!order?.gps ? (
+                ""
+              ) : (
+                <div className="row flex w-full mt-2 mb-5">
+                  <div className="col w-full">
+                    <div className="form-group flex h-96 w-full relative">
+                      <GoogleMaps
+                        latitude={order.gps.latitude}
+                        longitude={order.gps.longitude}
+                      />
                     </div>
                   </div>
-              }
+                </div>
+              )}
             </div>
           </div>
-          <button type="submit" className="py-3 pl-5 pr-5 mr-2 mt-5 transition-colors duration-700 transform bg-indigo-500 hover:bg-blue-400 text-gray-100 text-md focus:border-4 border-indigo-300">
+          <button
+            type="submit"
+            className="py-3 pl-5 pr-5 mr-2 mt-5 transition-colors duration-700 transform bg-indigo-500 hover:bg-blue-400 text-gray-100 text-md focus:border-4 border-indigo-300"
+          >
             Posting Orderan
           </button>
         </form>
