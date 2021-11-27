@@ -82,7 +82,7 @@ export function TambahOrder() {
           latitude: order.gps.latitude,
           longitude: order.gps.longitude,
         },
-        apply_order: [],
+        apply_order: "",
         rating: "-",
       })
       .then(function (response) {

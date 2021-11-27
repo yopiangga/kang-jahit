@@ -44,10 +44,10 @@ export function Sidebar(){
               Tambah Order
             </Link>
 
-            <Link to="/konfirmasi-order" className={menu("konfirmasi-order")}>
+            {/* <Link to="/konfirmasi-order" className={menu("konfirmasi-order")}>
               <FiCheckSquare className="mr-3" />
               Konfirmasi Order
-            </Link>
+            </Link> */}
       
             <Link to="/konfirmasi-diambil" className={menu("konfirmasi-diambil")}>
               <FiBox className="mr-3" />
