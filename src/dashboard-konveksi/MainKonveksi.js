@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import { UserContext } from '../context/UserContext';
 import { Akun } from './components/akun/Akun';
+import { EditAkun } from './components/akun/EditAkun';
 
 import { Beranda } from './components/beranda/Beranda';
 import { EditOrder } from './components/edit-order/EditOrder';
@@ -56,6 +57,9 @@ export default function MainKonveksi() {
                         </Routes>
                         <Routes>
                             <Route path="/akun" element={<Akun />} exact />
+                        </Routes>
+                        <Routes>
+                            <Route path="/edit-akun" element={<EditAkun />} exact />
                         </Routes>
 
                     </div>

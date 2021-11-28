@@ -40,8 +40,6 @@ export function Navigation() {
       .post(`${url.api}user`, {
         uid: data.uid,
         alamat: "",
-        kota: "",
-        provinsi: "",
         avatar: data.photoURL == "" ? "https://firebasestorage.googleapis.com/v0/b/kang-jahit.appspot.com/o/order%2Fuser.jfif?alt=media&token=4f3efe92-ed69-49ba-ba04-36f1d00b47f5" : data.photoURL,
         gender: "",
         no_telp: "",
@@ -81,8 +79,6 @@ export function Navigation() {
         setUser({
             uid: response.data[0].uid,
             alamat: response.data[0].alamat,
-            kota: response.data[0].kota,
-            provinsi: response.data[0].provinsi,
             avatar: response.data[0].avatar,
             gender: response.data[0].gender,
             no_telp: response.data[0].no_telp,
