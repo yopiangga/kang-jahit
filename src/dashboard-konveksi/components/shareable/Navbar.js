@@ -1,8 +1,11 @@
-import React from "react"
+import React, { useContext, useState } from "react"
 import { FiBell } from "react-icons/fi"
+import { Link } from "react-router-dom"
+import { UserContext } from "../../../context/UserContext"
 
 export function Navbar() {
-
+    const { url, setUrl, user, setUser, menuActive, setMenuActive } = useContext(UserContext)
+    
     return (
         <div className="fixed md:w-full md:top-0 md:z-20 flex flex-row flex-wrap items-center bg-white h-20 w-full px-6 shadow-sm">
 
@@ -21,7 +24,7 @@ export function Navbar() {
             </button>
 
             <div className="hidden xl:flex space-x-5 items-center ml-auto text-dark">
-                <a className="flex items-center hover:text-gray-200" href="#">
+                <a className="flex items-center hover:text-gray-600" href="#">
                     <FiBell className="text-xl" />
                     <span className="flex absolute -mt-5 ml-4">
                         <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-indigo-400 opacity-75"></span>
@@ -29,12 +32,12 @@ export function Navbar() {
                         </span>
                     </span>
                 </a>
-                <a className="flex items-center hover:text-gray-200" href="#">
-                    <span className="mr-2">Yopiangga</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 hover:text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <Link to="/akun" className="flex items-center hover:text-gray-600" href="#">
+                    <span className="mr-2">{user?.nama}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 hover:text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                </a>
+                </Link>
 
             </div>
 
