@@ -52,7 +52,7 @@ export function EditAkun() {
         },
       })
       .then(function (response) {
-        // console.log(response);
+        console.log(response);
         setModalInformationLittle({
           status: true,
           description: `Akun "${userEdit.nama}" berhasil di update`,
@@ -64,23 +64,10 @@ export function EditAkun() {
   };
 
   const handleChange = (event) => {
-    if (
-      event.target.name == "deskripsi" ||
-      event.target.name == "nama_konveksi"
-    ) {
-      setUserEdit({
-        ...userEdit,
-        konveksi: {
-          ...userEdit.konveksi,
-          [event.target.name]: event.target.value,
-        },
-      });
-    } else {
       setUserEdit({
         ...userEdit,
         [event.target.name]: event.target.value,
       });
-    }
   };
 
   const handleSubmit = (event) => {
@@ -100,9 +87,7 @@ export function EditAkun() {
       userEdit.tgl_lahir == "" ||
       userEdit.nama == "" ||
       userEdit.gps.latitude == "" ||
-      userEdit.gps.longitude == "" ||
-      userEdit.konveksi.nama_konveksi == "" ||
-      userEdit.deskripsi == ""
+      userEdit.gps.longitude == ""
     ) {
       return false;
     } else {
@@ -253,41 +238,6 @@ export function EditAkun() {
                   </label>
                 </div>
               </div>
-
-              <label
-                htmlFor="nama_konveksi"
-                className="block mt-2 text-xs font-semibold text-gray-600 uppercase"
-              >
-                Nama Konveksi
-              </label>
-              <input
-                id="nama_konveksi"
-                type="text"
-                name="nama_konveksi"
-                value={userEdit?.konveksi?.nama_konveksi}
-                onChange={handleChange}
-                placeholder="Nama konveksi anda"
-                className="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
-                required
-              />
-
-              <label
-                htmlFor="deskripsi"
-                className="block mt-2 text-xs font-semibold text-gray-600 uppercase"
-              >
-                Deskripsi Konveksi
-              </label>
-              <textarea
-                id="deskripsi"
-                rows="4"
-                type="text"
-                value={userEdit?.konveksi?.deskripsi}
-                onChange={handleChange}
-                name="deskripsi"
-                placeholder="Masukkan deskripsi orderan ..."
-                className="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
-                required
-              ></textarea>
 
               <label
                 htmlFor="lokasi"

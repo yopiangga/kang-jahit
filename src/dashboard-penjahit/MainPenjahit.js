@@ -2,6 +2,7 @@ import React from "react";
 
 import { Router, BrowserRouter, Switch, Route, Routes } from "react-router-dom";
 import { Akun } from "./components/akun/Akun";
+import { EditAkun } from "./components/akun/EditAkun";
 
 import { Beranda } from "./components/beranda/Beranda";
 import { CariOrder } from "./components/cari-order/CariOrder";
@@ -37,6 +38,9 @@ export default function MainPenjahit() {
                         </Routes>
                         <Routes>
                             <Route path="/akun" element={<Akun />} exact />
+                        </Routes>
+                        <Routes>
+                            <Route path="/edit-akun" element={<EditAkun />} exact />
                         </Routes>
                     </div>
                 </div>
