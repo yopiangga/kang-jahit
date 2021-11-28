@@ -5,9 +5,10 @@ import { UserContext } from "../../../context/UserContext";
 import getOrders from "../../../helper/api/order/getOrders";
 import StarRatings from "react-star-ratings";
 import axios from "axios";
+import { CardOrder } from "../../../guest/components/shareable/CardOrder";
 
-export function RiwayatTransaksi(){
-    const { url, setUrl, user, setUser, menuActive, setMenuActive } =
+export function RiwayatTransaksi() {
+  const { url, setUrl, user, setUser, menuActive, setMenuActive } =
     useContext(UserContext);
   const [orders, setOrders] = useState();
   const [idOrder, setIdOrder] = useState(-1);
@@ -26,8 +27,9 @@ export function RiwayatTransaksi(){
     },
     {
       onSuccess: (data) => {
-        if (data.data == "") {
-        } else setOrders(data.data);
+        if (data?.data?.length > 0) {
+          setOrders(data.data);
+        }
       },
     }
   );
@@ -76,47 +78,9 @@ export function RiwayatTransaksi(){
     axios.get(`${url.api}user/${orders[id]?.id_konveksi}`)
       .then(res => {
         setKonveksi(res.data[0])
-    }).catch(err => {
+      }).catch(err => {
 
-    })
-  }
-
-  function CardOrder(props) {
-    return (
-      <div
-        key={props.idx}
-        className="bg-white shadow-lg border-gray-100 max-h-64 w-11/12 border-none sm:rounded-lg p-8 flex space-x-8 mb-5"
-      >
-        <div className="h-64 overflow-visible w-1/2">
-          <img
-            className="rounded-lg shadow-lg w-full"
-            src={props.gambar}
-            alt=""
-          />
-        </div>
-        <div className="flex flex-col w-1/2 space-y-4">
-          <div className="flex justify-between items-start">
-            <h2 className="text-xl font-bold max-h-16">{props.nama_order}</h2>
-          </div>
-          <div>
-            <div className="text-sm text-gray-400 max-h-16 overflow-hidden">
-              {props.deskripsi}
-            </div>
-          </div>
-          <div className="flex justify-between items-center">
-            <div className="flex text-xl font-bold text-a">
-              Rp {props.biaya}
-            </div>
-            <button
-              onClick={() => props.handleDetail(props.idx)}
-              className="p-2 pl-5 pr-5 mr-2 transition-colors duration-700 transform bg-indigo-500 hover:bg-blue-400 text-gray-100 text-md focus:border-4 border-indigo-300"
-            >
-              Detail
-            </button>
-          </div>
-        </div>
-      </div>
-    );
+      })
   }
 
   return (
@@ -134,7 +98,10 @@ export function RiwayatTransaksi(){
                 deskripsi={el.deskripsi}
                 gambar={el.gambar}
                 biaya={el.biaya}
+                batas_selesai={el.batas_selesai}
+                kota={el.kota}
                 idx={idx}
+                kota={el.kota}
                 handleDetail={(idArr) => handleDetail(idArr)}
               />
             );
@@ -181,17 +148,17 @@ export function RiwayatTransaksi(){
                         </div>
                         <div className="flex flex-row items-center">
                           {
-                            konveksi?.rating == "" ? 
-                            <h4>-</h4>
-                            :
-                            <StarRatings
-                            numberOfStars={5}
-                            rating={konveksi?.rating}
-                            starRatedColor={"orange"}
-                            starDimension={"20px"}
-                            starSpacing={"1px"}
-                            starEmptyColor={"rgb(109, 122, 130"}
-                          />
+                            konveksi?.rating == "" ?
+                              <h4>-</h4>
+                              :
+                              <StarRatings
+                                numberOfStars={5}
+                                rating={konveksi?.rating}
+                                starRatedColor={"orange"}
+                                starDimension={"20px"}
+                                starSpacing={"1px"}
+                                starEmptyColor={"rgb(109, 122, 130"}
+                              />
                           }
                         </div>
 
@@ -208,19 +175,20 @@ export function RiwayatTransaksi(){
                   <h3 className="text-xl font-semibold leading-normal text-blueGray-700 mb-2">
                     {orders[idOrder]?.nama_order}
                   </h3>
+                  <h4>{orders[idOrder]?.kota?.results[3]?.formatted_address}</h4>
                   {
-                            orders[idOrder]?.rating == "" ? 
-                            <h4>-</h4>
-                            :
-                            <StarRatings
-                            numberOfStars={5}
-                            rating={orders[idOrder]?.rating}
-                            starRatedColor={"orange"}
-                            starDimension={"20px"}
-                            starSpacing={"1px"}
-                            starEmptyColor={"rgb(109, 122, 130"}
-                          />
-                          }
+                    orders[idOrder]?.rating == "" ?
+                      <h4>-</h4>
+                      :
+                      <StarRatings
+                        numberOfStars={5}
+                        rating={orders[idOrder]?.rating}
+                        starRatedColor={"orange"}
+                        starDimension={"20px"}
+                        starSpacing={"1px"}
+                        starEmptyColor={"rgb(109, 122, 130"}
+                      />
+                  }
                 </div>
                 <div className="mt-5 py-10 border-t border-blueGray-200 text-center">
                   <div className="flex flex-wrap justify-center">
@@ -230,7 +198,9 @@ export function RiwayatTransaksi(){
                       </p>
                     </div>
                   </div>
-
+                  <button className="py-2 px-4 transition-colors duration-700 transform text-indigo-500 text-md focus:border-4 border-indigo-300">
+                      Orderan selesai
+                    </button>
                 </div>
               </div>
             </div>

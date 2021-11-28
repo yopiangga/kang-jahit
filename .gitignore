@@ -20,6 +20,7 @@
 
 /src/component/GoogleMaps.js
 /src/helper/Firebase.js
+/src/helper/api/getNameCity.js
 
 npm-debug.log*
 yarn-debug.log*

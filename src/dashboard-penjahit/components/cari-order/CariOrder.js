@@ -5,6 +5,8 @@ import { UserContext } from "../../../context/UserContext";
 import getOrders from "../../../helper/api/order/getOrders";
 import StarRatings from "react-star-ratings";
 import axios from "axios";
+import { CardOrder } from "../../../guest/components/shareable/CardOrder";
+import GoogleMaps from "../../../component/GoogleMaps";
 
 export function CariOrder() {
   const { url, setUrl, user, setUser, menuActive, setMenuActive } =
@@ -26,7 +28,9 @@ export function CariOrder() {
     },
     {
       onSuccess: (data) => {
-        setOrders(data.data);
+        if (data?.data?.length > 0) {
+          setOrders(data.data);
+        }
       },
     }
   );
@@ -62,10 +66,10 @@ export function CariOrder() {
   };
 
   const validasiTawar = () => {
-    if (orders[idOrder]?.apply_order == user?.uid) {
-      return false;
-    } else {
+    if (orders[idOrder]?.status == 1) {
       return true;
+    } else {
+      return false;
     }
   };
 
@@ -77,46 +81,10 @@ export function CariOrder() {
       .then((res) => {
         setKonveksi(res.data[0]);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
-  function CardOrder(props) {
-    return (
-      <div
-        key={props.idx}
-        className="bg-white shadow-lg border-gray-100 max-h-64 w-11/12 border-none sm:rounded-lg p-8 flex space-x-8 mb-5"
-      >
-        <div className="h-64 overflow-visible w-1/2">
-          <img
-            className="rounded-lg shadow-lg w-full"
-            src={props.gambar}
-            alt=""
-          />
-        </div>
-        <div className="flex flex-col w-1/2 space-y-4">
-          <div className="flex justify-between items-start">
-            <h2 className="text-xl font-bold max-h-16">{props.nama_order}</h2>
-          </div>
-          <div>
-            <div className="text-sm text-gray-400 max-h-16 overflow-hidden">
-              {props.deskripsi}
-            </div>
-          </div>
-          <div className="flex justify-between items-center">
-            <div className="flex text-xl font-bold text-a">
-              Rp {props.biaya}
-            </div>
-            <button
-              onClick={() => props.handleDetail(props.idx)}
-              className="p-2 pl-5 pr-5 mr-2 transition-colors duration-700 transform bg-indigo-500 hover:bg-blue-400 text-gray-100 text-md focus:border-4 border-indigo-300"
-            >
-              Detail
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // console.log(orders)
 
   return (
     <div>
@@ -133,7 +101,10 @@ export function CariOrder() {
                 deskripsi={el.deskripsi}
                 gambar={el.gambar}
                 biaya={el.biaya}
+                batas_selesai={el.batas_selesai}
+                kota={el.kota}
                 idx={idx}
+                kota={el.kota}
                 handleDetail={(idArr) => handleDetail(idArr)}
               />
             );
@@ -208,19 +179,18 @@ export function CariOrder() {
                   <h3 className="text-xl font-semibold leading-normal text-blueGray-700 mb-2">
                     {orders[idOrder]?.nama_order}
                   </h3>
-                  <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
-                    <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
-                    {orders[idOrder]?.gps?.latitude},
-                    {orders[idOrder]?.gps?.longitude}
+                  <h4>{orders[idOrder]?.kota?.results[3]?.formatted_address}</h4>
+                  <div className="row flex w-full mt-2 mb-5">
+                    <div className="col w-full">
+                      <div className="form-group flex h-96 w-full relative">
+                        <GoogleMaps
+                          latitude={orders[idOrder]?.gps.latitude}
+                          longitude={orders[idOrder]?.gps.longitude}
+                        />
+                      </div>
+                    </div>
                   </div>
-                  <div className="mb-2 text-blueGray-600 mt-10">
-                    <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-                    {orders[idOrder]?.batas_selesai}
-                  </div>
-                  <div className="mb-2 text-blueGray-600">
-                    <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
-                    Rp. {orders[idOrder]?.biaya}
-                  </div>
+
                 </div>
                 <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
                   <div className="flex flex-wrap justify-center">

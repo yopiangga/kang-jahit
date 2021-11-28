@@ -5,6 +5,9 @@ import { UserContext } from "../../../context/UserContext";
 import GoogleMaps from "../../../component/GoogleMaps";
 import { FaUpload } from "react-icons/fa";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import getNameCity from "../../../helper/api/getNameCity";
+import { useHistory } from "react-router-dom";
+import history from "../../../helper/history";
 
 export function TambahOrder() {
   const { url, setUrl, user, setUser, menuActive, setMenuActive } =
@@ -78,12 +81,13 @@ export function TambahOrder() {
         deskripsi: order.deskripsi,
         gambar: urlImage,
         batas_selesai: order.batas_selesai,
+        kota: order.kota,
         gps: {
           latitude: order.gps.latitude,
           longitude: order.gps.longitude,
         },
         apply_order: "",
-        rating: "-",
+        rating: 0,
       })
       .then(function (response) {
         // console.log(response);
@@ -124,6 +128,7 @@ export function TambahOrder() {
       title: "",
       description: "",
     });
+    history.push('/konfirmasi-diambil');
   };
 
   const getLocation = () => {
@@ -133,13 +138,19 @@ export function TambahOrder() {
   };
 
   const showPosition = (position) => {
-    setOrder({
-      ...order,
-      gps: {
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-      },
-    });
+    getNameCity({latitude: position.coords.latitude, longitude: position.coords.longitude}).then(res => {
+      setOrder({
+        ...order,
+        kota: res?.data,
+        gps: {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        },
+      });
+    }).catch(err => {
+
+    })
+
   };
 
   return (

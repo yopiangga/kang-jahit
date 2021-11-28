@@ -42,7 +42,7 @@ export function Navigation() {
         alamat: "",
         kota: "",
         provinsi: "",
-        avatar: data.photoURL,
+        avatar: data.photoURL == "" ? "https://firebasestorage.googleapis.com/v0/b/kang-jahit.appspot.com/o/order%2Fuser.jfif?alt=media&token=4f3efe92-ed69-49ba-ba04-36f1d00b47f5" : data.photoURL,
         gender: "",
         no_telp: "",
         rating: "",
