@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { UserContext } from "../../../context/UserContext";
 import axios from "axios";
+import { FaGoogle } from "react-icons/fa";
 
 export function Navigation() {
   const { url, setUrl, user, setUser, menuActive, setMenuActive, isLogin, setIsLogin } =
@@ -116,14 +117,14 @@ export function Navigation() {
         <div className="nav w-4/12">
           <ul className="w-full h-full flex justify-center">
             <li className="text-indigo-600 flex justify-center items-center px-5 mx-1">
-              <Link to="/">Beranda</Link>
+              <a href="#home">Beranda</a>
             </li>
             <li className="text-white flex justify-center items-center px-5 mx-1">
-              <Link to="/">Tentang Kami</Link>
+              <a href="#langganan">Langganan</a>
             </li>
-            {/* <li className="text-white flex justify-center items-center px-5 mx-1"><Link to="/">Penjahit</Link></li> */}
+            {/* <li className="text-white flex justify-center items-center px-5 mx-1"><a href="#">Penjahit</a></li> */}
             <li className="text-white flex justify-center items-center px-5 mx-1">
-              <Link to="/">Bantuan</Link>
+              <a href="#bantuan">Bantuan</a>
             </li>
           </ul>
         </div>
@@ -131,14 +132,16 @@ export function Navigation() {
         <div className="action w-4/12 flex justify-end items-center">
           <button
             onClick={() => handleAuth(1)}
-            className="p-2 pl-5 pr-5 mr-2 transition-colors duration-700 transform bg-indigo-500 hover:bg-blue-400 text-gray-100 text-md focus:border-4 border-indigo-300"
+            className="p-2 pl-5 pr-5 mr-2 transition-colors border-2 duration-700 flex items-center transform bg-indigo-500 hover:bg-blue-400 text-gray-100 text-md focus:border-4 border-indigo-500"
           >
+            <FaGoogle className="mr-2" />
             Masuk Konveksi
           </button>
           <button
             onClick={() => handleAuth(2)}
-            className="p-2 pl-5 pr-5 bg-transparent border-2 border-indigo-500 text-indigo-500 text-md transition-colors duration-700 transform hover:bg-indigo-500 hover:text-gray-100 focus:border-4 focus:border-indigo-300"
+            className="p-2 pl-5 pr-5 bg-transparent border-2 flex items-center border-indigo-500 text-indigo-500 text-md transition-colors duration-700 transform hover:bg-indigo-500 hover:text-gray-100 focus:border-4 focus:border-indigo-300"
           >
+            <FaGoogle className="mr-2" />
             Masuk Penjahit
           </button>
         </div>

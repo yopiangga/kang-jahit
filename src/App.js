@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 import MainKonveksi from "./dashboard-konveksi/MainKonveksi.js";
 import MainPenjahit from "./dashboard-penjahit/MainPenjahit.js";
@@ -8,9 +8,18 @@ import { UserContext, UserProvider } from "./context/UserContext.js";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import { Loader } from "./component/Loader.js";
 
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 const queryClient = new QueryClient();
 
 export default function App() {
+
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <UserProvider>
@@ -23,7 +32,7 @@ export default function App() {
 function UserManager() {
   const {user, setUser, menuActive, setMenuActive, isLogin, setIsLogin} = useContext(UserContext)
 
-  if (isLogin == "") return <Loader />
+  if (isLogin == undefined) return <Loader />
 
   // if (error) return 'An error has occurred: ' + error.message
 

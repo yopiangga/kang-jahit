@@ -3,7 +3,7 @@ import React from "react";
 export function NewsCard(props) {
 
     return (
-        <div className="overflow-hidden transition duration-500 ease-in-out transform hover:-translate-y-5 hover:shadow-2xl h-90 w-60 md:w-80 cursor-pointer mx-4">
+        <div className="overflow-hidden transition border border-indigo-200 border-opacity-30 duration-500 ease-in-out transform hover:-translate-y-5 hover:shadow-2xl h-90 w-60 md:w-80 cursor-pointer mx-4">
             <a href="#" className="w-full block h-full">
                 <img alt="blog photo" src={props.image} className="max-h-40 w-full object-cover" />
                 <div className="bg-transparent w-full p-4">
