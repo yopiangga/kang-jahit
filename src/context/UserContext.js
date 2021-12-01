@@ -6,7 +6,7 @@ import axios from "axios";
 export const UserContext = createContext();
 
 export const UserProvider = props => {
-  const [url, setUrl] = useState({api: "http://localhost:3000/"});
+  const [url, setUrl] = useState({api: "http://localhost:3000/", baseUrl: "http://localhost:3002/"});
   const [user, setUser] = useState("");
   const [menuActive, setMenuActive] = useState();
   const [isLogin, setIsLogin] = useState("");
@@ -17,7 +17,8 @@ export const UserProvider = props => {
       if (user) {
         handleDataUser(user);
       } else {
-        setIsLogin(0)
+        setIsLogin(10)
+        setUser(10)
       }
     });
 
@@ -56,6 +57,7 @@ export const UserProvider = props => {
     })
     .catch(function (error) {
         console.log(error);
+
     })
   }
 

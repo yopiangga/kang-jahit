@@ -1,14 +1,25 @@
 import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../../context/UserContext";
+import { getAuth, signOut } from "firebase/auth";
 
 export function Akun() {
 
     const {url, setUrl, user, setUser, menuActive, setMenuActive} = useContext(UserContext)
-    
+
     useEffect(() => {
         setMenuActive("akun-saya");
     }, [])
+
+    const handleLogout = () => {
+        const auth = getAuth();
+        signOut(auth).then(() => {
+          setUser(10)
+          window.location = url.baseUrl;
+        }).catch((error) => {
+          // An error happened.
+        });
+    }
     
     return (
         <div>
@@ -28,7 +39,14 @@ export function Akun() {
                                         >
                                             Edit Profile
                                         </Link>
+                                        <button onClick={handleLogout}
+                                            className="bg-white active:bg-indigo-600 uppercase text-dark font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                                            type="button"
+                                        >
+                                            Log Out
+                                        </button>
                                     </div>
+                                    
                                 </div>
                                 <div className="w-full lg:w-4/12 px-4 lg:order-1">
                                     <div className="flex justify-start py-4 lg:pt-4 pt-8">

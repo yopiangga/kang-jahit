@@ -32,7 +32,7 @@ export default function App() {
 function UserManager() {
   const {user, setUser, menuActive, setMenuActive, isLogin, setIsLogin} = useContext(UserContext)
 
-  if (isLogin == undefined) return <Loader />
+  if (isLogin == 0 && user == 0) return <Loader />
 
   // if (error) return 'An error has occurred: ' + error.message
 
