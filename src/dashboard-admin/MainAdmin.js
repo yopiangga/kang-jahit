@@ -12,6 +12,8 @@ import { Akun } from './components/akun/Akun';
 import { EditAkun } from './components/akun/EditAkun';
 
 import { Beranda } from './components/beranda/Beranda';
+import { SemuaPengguna } from './components/semua-pengguna/SemuaPengguna';
+import { SemuaTransaksi } from './components/semua-transaksi/SemuaTransaksi';
 import { Navbar } from './components/shareable/Navbar';
 import { Sidebar } from './components/shareable/Sidebar';
 
@@ -30,6 +32,12 @@ export default function MainAdmin() {
                     <div className="bg-gray-100 p-6 mt-16 w-10/12 text-dark">
                         <Routes>
                             <Route path="/" element={<Beranda />} exact />
+                        </Routes>
+                        <Routes>
+                            <Route path="/semua-pengguna" element={<SemuaPengguna />} exact />
+                        </Routes>
+                        <Routes>
+                            <Route path="/semua-transaksi" element={<SemuaTransaksi />} exact />
                         </Routes>
                         <Routes>
                             <Route path="/akun" element={<Akun />} exact />
