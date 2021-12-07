@@ -128,7 +128,7 @@ export function TambahOrder() {
       title: "",
       description: "",
     });
-    history.push('/konfirmasi-diambil');
+    window.location = url.baseUrl;
   };
 
   const getLocation = () => {

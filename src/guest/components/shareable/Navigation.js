@@ -28,15 +28,21 @@ export function Navigation() {
   };
 
   const handleAuth2 = (data, status, type) => {
-    if (status) {
-      handleDaftar(data, type);
-    // console.log(data)
-    } else {
-      handleSignin(data);
-    }
+    axios
+    .get(`${url.api}user/${data.uid}`)
+    .then(function (response){
+        // console.log(response)
+        if(response.data.error){
+          handleDaftar(data, type);
+        } else {
+          handleSignin(data);
+        }
+    })
+
   };
 
   const handleDaftar = (data, type) => {
+    // console.log(data)
     axios
       .post(`${url.api}user`, {
         uid: data.uid,
@@ -62,10 +68,11 @@ export function Navigation() {
         },
       })
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
+
       })
       .catch(function (error) {
-        console.log(error);
+        // console.log(error);
       })
   };
 
@@ -75,7 +82,6 @@ export function Navigation() {
     axios
     .get(`${url.api}user/${data.uid}`)
     .then(function (response) {
-        console.log(response);
 
         setUser({
             uid: response.data[0].uid,
@@ -102,7 +108,7 @@ export function Navigation() {
         })
     })
     .catch(function (error) {
-        console.log(error);
+        // console.log(error);
     })
 };
 

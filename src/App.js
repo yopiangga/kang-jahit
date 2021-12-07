@@ -10,6 +10,7 @@ import { Loader } from "./component/Loader.js";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
+import MainAdmin from "./dashboard-admin/MainAdmin.js";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,8 @@ function UserManager() {
     return <MainKonveksi />;
   } else if (isLogin == 1 && user?.role == 2) {
     return <MainPenjahit />;
+  } else if (isLogin == 1 && user?.role == 3) {
+    return <MainAdmin />
   } else {
     return <MainGuest />;
   }

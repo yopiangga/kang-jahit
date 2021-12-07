@@ -52,11 +52,12 @@ export function EditAkun() {
         },
       })
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
         setModalInformationLittle({
           status: true,
           description: `Akun "${userEdit.nama}" berhasil di update`,
         });
+        window.location = url.baseUrl;
       })
       .catch(function (error) {
         console.log(error);
