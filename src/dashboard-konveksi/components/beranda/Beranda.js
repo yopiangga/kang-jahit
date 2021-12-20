@@ -96,9 +96,7 @@ export function Beranda() {
                         <div className="flex justify-between mt-2">
                             <p className="text-gray-200">
                                 {
-                                    opd?.length > 0 ? opd.length : 0 +
-                                        odp?.length > 0 ? odp.length : 0 +
-                                            os?.length > 0 ? os.length : 0
+                                    ok?.length > 0 ? ok.length : 0 
                                 } Orderan</p>
                             <FiGift className="text-2xl text-white" />
                         </div>
