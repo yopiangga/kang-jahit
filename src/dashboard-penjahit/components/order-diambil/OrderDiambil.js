@@ -7,6 +7,7 @@ import StarRatings from "react-star-ratings";
 import axios from "axios";
 import { CardOrder } from "../../../guest/components/shareable/CardOrder";
 import GoogleMaps from "../../../component/GoogleMaps";
+import { ModalInformationLittle } from "../../../component/ModalInformationLittle";
 
 export function OrderDiambil() {
   const { url, setUrl, user, setUser, menuActive, setMenuActive } =
@@ -14,6 +15,10 @@ export function OrderDiambil() {
   const [orders, setOrders] = useState();
   const [idOrder, setIdOrder] = useState(-1);
   const [konveksi, setKonveksi] = useState();
+  const [modalInformationLittle, setModalInformationLittle] = useState({
+    status: false,
+    description: "",
+  });
 
   useEffect(() => {
     setMenuActive("orderan-diambil");
@@ -55,10 +60,10 @@ export function OrderDiambil() {
       })
       .then(function (response) {
         // console.log(response);
-        // setModalInformationLittle({
-        //     status: true,
-        //     description: `Orderan "${order.judul}" berhasil di tambahkan`,
-        // });
+        setModalInformationLittle({
+            status: true,
+            description: `Orderan "${orders[idOrder].nama_order}" berhasil diselesaikan`,
+        });
       })
       .catch(function (error) {
         // console.log(error);
@@ -84,9 +89,24 @@ export function OrderDiambil() {
     })
   }
 
+  const handleCloseModal = () => {
+    setModalInformationLittle({
+      status: false,
+      title: "",
+      description: "",
+    });
+    window.location = url.baseUrl;
+  };
+
   
   return (
     <div>
+      <ModalInformationLittle
+        status={modalInformationLittle.status}
+        title={modalInformationLittle.title}
+        description={modalInformationLittle.description}
+        handleClose={handleCloseModal}
+      />
       <div
         className={
           idOrder >= 0 ? "grid grid-cols-2 mt-5" : "grid grid-cols-1 mt-5"

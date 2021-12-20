@@ -34,36 +34,6 @@ export function RiwayatTransaksi() {
     }
   );
 
-  const handleSelesai = () => {
-    axios
-      .put(`${url.api}order/${orders[idOrder]?._id}`, {
-        id_konveksi: orders[idOrder]?.id_konveksi,
-        id_penjahit: user.uid,
-        status: 4,
-        biaya: orders[idOrder]?.biaya,
-        nama_orders: orders[idOrder]?.judul,
-        deskripsi: orders[idOrder]?.deskripsi,
-        gambar: orders[idOrder]?.gambar,
-        batas_selesai: orders[idOrder]?.batas_selesai,
-        gps: {
-          latitude: orders[idOrder]?.gps.latitude,
-          longitude: orders[idOrder]?.gps.longitude,
-        },
-        apply_order: user.uid,
-        rating: orders[idOrder]?.rating,
-      })
-      .then(function (response) {
-        // console.log(response);
-        // setModalInformationLittle({
-        //     status: true,
-        //     description: `Orderan "${order.judul}" berhasil di tambahkan`,
-        // });
-      })
-      .catch(function (error) {
-        // console.log(error);
-      });
-  };
-
   const validasiTawar = () => {
     if (orders[idOrder]?.status == 3) {
       return true;

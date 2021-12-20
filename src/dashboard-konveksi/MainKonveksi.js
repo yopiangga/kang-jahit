@@ -43,15 +43,15 @@ export default function MainKonveksi() {
                         <Routes>
                             <Route path="/edit-order/:id" element={<EditOrder />} exact />
                         </Routes>
-                        <Routes>
+                        {/* <Routes>
                             <Route path="/konfirmasi-order" element={<KonfirmasiOrder />} exact />
-                        </Routes>
+                        </Routes> */}
                         <Routes>
                             <Route path="/konfirmasi-diambil" element={<KonfirmasiDiambil />} exact />
                         </Routes>
-                        <Routes>
+                        {/* <Routes>
                             <Route path="/konfirmasi-selesai" element={<KonfirmasiSelesai />} exact />
-                        </Routes>
+                        </Routes> */}
                         <Routes>
                             <Route path="/riwayat-transaksi" element={<RiwayatTransaksi />} exact />
                         </Routes>

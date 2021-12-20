@@ -54,10 +54,10 @@ export function Sidebar(){
               Konfirmasi Diambil
             </Link>
       
-            <Link to="konfirmasi-selesai" className={menu("konfirmasi-selesai")}>
+            {/* <Link to="konfirmasi-selesai" className={menu("konfirmasi-selesai")}>
               <FiAward className="mr-3" />
               Konfirmasi Selesai
-            </Link>
+            </Link> */}
       
             <Link to="riwayat-transaksi" className={menu("riwayat-transaksi")}>
               <FiGift className="mr-3" />

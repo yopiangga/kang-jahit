@@ -5,6 +5,7 @@ import StarRatings from 'react-star-ratings';
 import { UserContext } from '../../../context/UserContext';
 import getOrders from '../../../helper/api/order/getOrders';
 import { CardOrder } from '../../../guest/components/shareable/CardOrder';
+import { ModalInformationLittle } from '../../../component/ModalInformationLittle';
 
 export function KonfirmasiDiambil() {
     const { url, setUrl, user, setUser, menuActive, setMenuActive } =
@@ -12,6 +13,10 @@ export function KonfirmasiDiambil() {
   const [orders, setOrders] = useState();
   const [idOrder, setIdOrder] = useState(-1);
   const [penjahit, setPenjahit] = useState();
+  const [modalInformationLittle, setModalInformationLittle] = useState({
+    status: false,
+    description: "",
+  });
 
   useEffect(() => {
     setMenuActive("konfirmasi-diambil");
@@ -53,10 +58,10 @@ export function KonfirmasiDiambil() {
       })
       .then(function (response) {
         // console.log(response);
-        // setModalInformationLittle({
-        //     status: true,
-        //     description: `Orderan "${order.judul}" berhasil di ambil`,
-        // });
+        setModalInformationLittle({
+            status: true,
+            description: `Orderan "${orders[idOrder]?.nama_order}" berhasil diambil`,
+        });
       })
       .catch(function (error) {
         // console.log(error);
@@ -82,9 +87,24 @@ export function KonfirmasiDiambil() {
     })
   }
 
+  const handleCloseModal = () => {
+    setModalInformationLittle({
+      status: false,
+      title: "",
+      description: "",
+    });
+    window.location = url.baseUrl;
+  };
+
 
   return (
     <div>
+      <ModalInformationLittle
+        status={modalInformationLittle.status}
+        title={modalInformationLittle.title}
+        description={modalInformationLittle.description}
+        handleClose={handleCloseModal}
+      />
       <div
         className={
           idOrder >= 0 ? "grid grid-cols-2 mt-5" : "grid grid-cols-1 mt-5"
