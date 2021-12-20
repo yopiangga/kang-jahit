@@ -160,7 +160,7 @@ export function Beranda() {
                     </div>
 
                     <div className="py-5 ml-10">
-                        <h1 className="text-xl font-bold">Halo selamat datang, <span>Alfian Prisma Yopiangga!</span></h1>
+                        <h1 className="text-xl font-bold">Halo selamat datang, <span>{user?.nama}!</span></h1>
                         <p className="text-xs">Lakukan yang terbaik hari ini, good luck</p>
 
                         <ul className="mt-4 mb-5">
@@ -218,7 +218,7 @@ export function Beranda() {
                                             {el.status == 4 ? "Selesai" : ""}
                                         </td>
                                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                            <Link to={`/order/edit/${el._id}`} className="p-2 pl-5 pr-5 transition-colors duration-700 transform bg-indigo-500 hover:bg-blue-400 text-gray-100 text-md focus:border-4 border-indigo-300">Edit</Link>
+                                            <Link to={`/edit-order/${el._id}`} className="p-2 pl-5 pr-5 transition-colors duration-700 transform bg-indigo-500 hover:bg-blue-400 text-gray-100 text-md focus:border-4 border-indigo-300">Edit</Link>
                                         </td>
                                         
                                     </tr>

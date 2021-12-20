@@ -99,11 +99,7 @@ export function EditAkun() {
       userEdit.gender == "" ||
       userEdit.no_telp == "" ||
       userEdit.tgl_lahir == "" ||
-      userEdit.nama == "" ||
-      userEdit.gps.latitude == "" ||
-      userEdit.gps.longitude == "" ||
-      userEdit.konveksi.nama_konveksi == "" ||
-      userEdit.deskripsi == ""
+      userEdit.nama == ""
     ) {
       return false;
     } else {
@@ -120,30 +116,6 @@ export function EditAkun() {
       description: "",
     });
     history.push("");
-  };
-
-  const getLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    }
-  };
-
-  const showPosition = (position) => {
-    getNameCity({
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude,
-    })
-      .then((res) => {
-        setUserEdit({
-          ...userEdit,
-          alamat: res?.data,
-          gps: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          },
-        });
-      })
-      .catch((err) => { });
   };
 
   return (
@@ -254,71 +226,6 @@ export function EditAkun() {
                   </label>
                 </div>
               </div>
-
-              <label
-                htmlFor="nama_konveksi"
-                className="block mt-2 text-xs font-semibold text-gray-600 uppercase"
-              >
-                Nama Konveksi
-              </label>
-              <input
-                id="nama_konveksi"
-                type="text"
-                name="nama_konveksi"
-                value={userEdit?.konveksi?.nama_konveksi}
-                onChange={handleChange}
-                placeholder="Nama konveksi anda"
-                className="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
-                required
-              />
-
-              <label
-                htmlFor="deskripsi"
-                className="block mt-2 text-xs font-semibold text-gray-600 uppercase"
-              >
-                Deskripsi Konveksi
-              </label>
-              <textarea
-                id="deskripsi"
-                rows="4"
-                type="text"
-                value={userEdit?.konveksi?.deskripsi}
-                onChange={handleChange}
-                name="deskripsi"
-                placeholder="Masukkan deskripsi orderan ..."
-                className="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
-                required
-              ></textarea>
-
-              <label
-                htmlFor="lokasi"
-                className="block mt-2 text-xs font-semibold text-gray-600 uppercase"
-              >
-                Dapatkan lokasi terkini
-                <button
-                  onClick={getLocation}
-                  type="button"
-                  className="ml-2 bg-indigo-600 rounded-md py-1 px-2 text-sm text-white"
-                >
-                  Lokasi anda
-                </button>
-              </label>
-
-              {userEdit?.gps?.latitude == "" ||
-                userEdit?.gps?.longitude == "" ? (
-                ""
-              ) : (
-                <div className="row flex w-full mt-2 mb-5">
-                  <div className="col w-full">
-                    <div className="form-group flex h-96 w-full relative">
-                      <GoogleMaps
-                        latitude={userEdit?.gps?.latitude}
-                        longitude={userEdit?.gps?.longitude}
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
             </div>
           </div>
           <button

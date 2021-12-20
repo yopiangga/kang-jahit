@@ -163,7 +163,7 @@ export function TambahOrder() {
       />
       <div className="w-11/12 p-12 bg-white mt-5 rounded-lg shadow-lg">
         <h1 className="text-xl font-semibold">
-          Hallo Alfian 👋,{" "}
+          Hallo {user?.nama} 👋,{" "}
           <span className="font-normal">
             isi informasi orderan sebelum di posting ke halaman penjahit
           </span>

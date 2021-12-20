@@ -160,7 +160,7 @@ export function Beranda() {
                     </div>
 
                     <div className="py-5 ml-10">
-                        <h1 className="text-xl font-bold">Halo selamat datang, <span>Alfian Prisma Yopiangga!</span></h1>
+                        <h1 className="text-xl font-bold">Halo selamat datang, <span>{user?.nama}!</span></h1>
                         <p className="text-xs">Lakukan yang terbaik hari ini, good luck</p>
 
                         <ul className="mt-4 mb-5">

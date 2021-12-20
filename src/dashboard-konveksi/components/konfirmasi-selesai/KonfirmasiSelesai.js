@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import StarRatings from 'react-star-ratings';
 import { UserContext } from '../../../context/UserContext';
+import { CardOrder } from '../../../guest/components/shareable/CardOrder';
 import getOrders from '../../../helper/api/order/getOrders';
 
 export function KonfirmasiSelesai() {
@@ -81,44 +82,6 @@ export function KonfirmasiSelesai() {
     })
   }
 
-  function CardOrder(props) {
-    return (
-      <div
-        key={props.idx}
-        className="bg-white shadow-lg border-gray-100 max-h-64 w-11/12 border-none sm:rounded-lg p-8 flex space-x-8 mb-5"
-      >
-        <div className="h-64 overflow-visible w-1/2">
-          <img
-            className="rounded-lg shadow-lg w-full"
-            src={props.gambar}
-            alt=""
-          />
-        </div>
-        <div className="flex flex-col w-1/2 space-y-4">
-          <div className="flex justify-between items-start">
-            <h2 className="text-xl font-bold max-h-16">{props.nama_order}</h2>
-          </div>
-          <div>
-            <div className="text-sm text-gray-400 max-h-16 overflow-hidden">
-              {props.deskripsi}
-            </div>
-          </div>
-          <div className="flex justify-between items-center">
-            <div className="flex text-xl font-bold text-a">
-              Rp {props.biaya}
-            </div>
-            <button
-              onClick={() => props.handleDetail(props.idx)}
-              className="p-2 pl-5 pr-5 mr-2 transition-colors duration-700 transform bg-indigo-500 hover:bg-blue-400 text-gray-100 text-md focus:border-4 border-indigo-300"
-            >
-              Detail
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div>
       <div
@@ -134,7 +97,10 @@ export function KonfirmasiSelesai() {
                 deskripsi={el.deskripsi}
                 gambar={el.gambar}
                 biaya={el.biaya}
+                batas_selesai={el.batas_selesai}
+                kota={el.kota}
                 idx={idx}
+                kota={el.kota}
                 handleDetail={(idArr) => handleDetail(idArr)}
               />
             );
