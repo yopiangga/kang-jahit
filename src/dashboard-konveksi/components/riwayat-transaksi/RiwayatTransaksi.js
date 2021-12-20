@@ -21,7 +21,7 @@ export function RiwayatTransaksi() {
         "orders",
         async () => {
             const response = await getOrders(`${url.api}order/riwayat/${user.uid}`);
-            console.log(response);
+            // console.log(response);
             return response;
         },
         {

@@ -21,7 +21,7 @@ export function EditOrder() {
 
         axios.get(`${url.api}/order/${id}`).then(res => {
             setOrder(res?.data[0])
-            console.log(res.data[0])
+            // console.log(res.data[0])
         }).catch(err => {
 
         })
@@ -56,7 +56,7 @@ export function EditOrder() {
                 });
             })
             .catch(function (error) {
-                console.log(error);
+                // console.log(error);
             });
     };
 

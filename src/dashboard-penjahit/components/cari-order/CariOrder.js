@@ -54,14 +54,14 @@ export function CariOrder() {
         rating: orders[idOrder]?.rating,
       })
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
         // setModalInformationLittle({
         //     status: true,
         //     description: `Orderan "${order.judul}" berhasil di tambahkan`,
         // });
       })
       .catch(function (error) {
-        console.log(error);
+        // console.log(error);
       });
   };
 

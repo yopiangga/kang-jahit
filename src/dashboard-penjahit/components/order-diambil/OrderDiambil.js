@@ -23,7 +23,7 @@ export function OrderDiambil() {
     "orders",
     async () => {
       const response = await getOrders(`${url.api}order/diambil/${user.uid}`);
-      console.log(response);
+      // console.log(response);
       return response;
     },
     {
@@ -54,14 +54,14 @@ export function OrderDiambil() {
         rating: orders[idOrder]?.rating,
       })
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
         // setModalInformationLittle({
         //     status: true,
         //     description: `Orderan "${order.judul}" berhasil di tambahkan`,
         // });
       })
       .catch(function (error) {
-        console.log(error);
+        // console.log(error);
       });
   };
 
